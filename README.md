@@ -24,6 +24,12 @@ Django e MongoDB
 Nesta página são listados todos os registros de pagamentos no banco de dados. Cada registro de pagamento contém um identificador único (id), valor a ser pago (amount), valor efetivamente pago pelo cliente (amount_paid), troco (change), data e horário de inserção do registro (create_date) e a data e horário da última atualização (update_date). O melhor troco (best_change), com o menor número de cédulas, é calculado dinamicamente a partir das informações salvas no banco.  
 Em "best_change" as chaves são o tipo de cédula e o valor é a quantidade ideal desta para obter o troco com o menor número de cédulas.
 
+Considera-se que há:
+
+• Cédulas de R$ 100.00, R$ 50.00, R$ 10.00, R$ 5.00 e R$ 1.00;
+
+• Moedas de R$ 0.50, R$ 0.10, R$ 0.05 e R$ 0.01.
+
 Exemplo de um registro:
 
     {
