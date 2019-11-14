@@ -23,8 +23,12 @@ class PaymentSerializer(ModelSerializer):
         amount_paid = float(instance.amount_paid)
         change = round(amount_paid - amount, 2)
         best_change = []
-        values = (100, 50, 10, 5, 1, 0.5, 0.1, 0.05, 0.01)
-        for i in values:
-
-            print(i)
-        return change
+        banknotes_coins = (100, 50, 10, 5, 1, 0.5, 0.1, 0.05, 0.01)
+        for key in banknotes_coins:
+            if change >= key:
+                count = change // key
+                rest = change % key
+                change = rest
+                item = {'R$_'+str(key): int(count)}
+                best_change.append(item)
+        return best_change

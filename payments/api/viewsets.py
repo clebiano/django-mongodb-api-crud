@@ -2,7 +2,6 @@ from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from payments.models import Payment
 from .serializers import PaymentSerializer
-from .utils import calculateChange
 
 
 class PaymentViewSet(ModelViewSet):
