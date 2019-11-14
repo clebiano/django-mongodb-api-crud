@@ -1,2 +1,6 @@
 venv
+*sqlite*
 .idea
+.vscode
+migrations
+__pycache__

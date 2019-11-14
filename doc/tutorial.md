@@ -1,4 +1,8 @@
 ## Estrutura inicial
+
+Principal referência para calcular um campo dinamicamente:
+https://django.cowhite.com/blog/dynamic-fields-in-django-rest-framwork-serializers/
+
 - Criando diretório raiz para o projeto  
 	`$ mkdir healthcare_apps`
 - Entrando no diretório raiz do projeto  

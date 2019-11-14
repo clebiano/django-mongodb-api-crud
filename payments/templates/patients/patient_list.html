@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Pacientes{% endblock %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col">
+        <h1>Pacientes cadastrados</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <form method="GET" id="search-form" autocomplete="off">
+            <div class="search-div input-group">
+                <input type="text" class="form-control" id="search" name="search"
+                     placeholder="Pesquisar pelo código identificador..." value="{{ search }}">
+                <div class="input-group-append">
+                    <button class="btn input-group-text lime lighten-2" type="submit" id="search-btn">
+                        <i class="fas fa-search text-grey" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-6">
+        <a href="{% url 'patient-create' %}">
+            <button type="button" class="btn btn-primary buttonAdd"><i class="fas fa-plus"></i> Adicionar</button></a>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <p class="alert alert-dismissable {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message }}
+        </p>
+    {% endfor %}
+{% endif %}
+
+{% if patient_list %}
+    <div class="row patientList">
+        <div class="col table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome do cliente</th>
+                        <th>Código identificador</th>
+                        <th>Última alteração</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for patient in patient_list %}
+                    <tr>
+                        <td><a href="{% url 'patient-detail' patient.pk %}">{{ patient.name }}</a></td>
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.update_date }}</td>
+                        <td>
+                            <a href="{% url 'patient-update' patient.pk %}">
+                                <span><i class="fas fa-pencil-alt"></i></span></a>
+                        </td>
+                        <td>
+                            <a href="{% url 'patient-delete' patient.pk %}" class="delete-btn">
+                                <span><i class="fas fa-trash-alt"></i></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% if is_paginated %}
+    <div class="row">
+        <div class="col pagination">
+            <span class="pagination-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                {% endif %}
+                <span class="page-current">
+                    {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+    <div class="row patientList">
+        <div class="col">
+            <p>Nenhum paciente encontrado!!!</p>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
